@@ -18,4 +18,13 @@ public class ErrorHandlerController {
         model.addAttribute("timestamp", new  Date());
         return "error/aritmetica";
     }
+
+    @ExceptionHandler(NumberFormatException.class)
+    public String conversionNumber(Exception e, Model model){
+        model.addAttribute("error", "Error de conversión númerica: Formato de número invalido!");
+        model.addAttribute("message", e.getMessage());
+        model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+        model.addAttribute("timestamp", new  Date());
+        return "error/conversionNumero";
+    }
 }

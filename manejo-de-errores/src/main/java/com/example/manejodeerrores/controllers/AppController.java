@@ -11,7 +11,8 @@ public class AppController {
 
     @GetMapping("/index")
     public String index(Model model){
-        Integer num = 100/0;//Provocamos un error de aritmetica!
+        // Integer num = 100/0;//Provocamos un error de aritmetica!
+        Integer valor = Integer.parseInt("hola");//Provocamos un error de conversion numerica
         return "index";
     }
     
