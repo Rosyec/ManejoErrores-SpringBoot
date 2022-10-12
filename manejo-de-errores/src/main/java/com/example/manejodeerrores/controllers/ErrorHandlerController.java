@@ -7,6 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.example.manejodeerrores.errors.UsuarioNoEncontradoException;
+
 @ControllerAdvice
 public class ErrorHandlerController {
 
@@ -16,7 +18,7 @@ public class ErrorHandlerController {
         model.addAttribute("message", e.getMessage());
         model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
         model.addAttribute("timestamp", new  Date());
-        return "error/aritmetica";
+        return "error/vistaError";
     }
 
     @ExceptionHandler(NumberFormatException.class)
@@ -25,6 +27,15 @@ public class ErrorHandlerController {
         model.addAttribute("message", e.getMessage());
         model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
         model.addAttribute("timestamp", new  Date());
-        return "error/conversionNumero";
+        return "error/vistaError";
+    }
+
+    @ExceptionHandler(UsuarioNoEncontradoException.class)
+    public String usuarioNoEncontrado(Exception e, Model model){
+        model.addAttribute("error", "Error NullPointerException: Usuario no encontrado!");
+        model.addAttribute("message", e.getMessage());
+        model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+        model.addAttribute("timestamp", new  Date());
+        return "error/vistaError";
     }
 }
