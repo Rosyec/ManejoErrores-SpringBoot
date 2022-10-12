@@ -1,5 +1,7 @@
 package com.example.manejodeerrores.controllers;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -29,10 +31,14 @@ public class AppController {
 
     @GetMapping("/ver/{id}")
     public String ver(@PathVariable Integer id, Model model){
-        Usuario usuario = service.obtenerPorId(new Usuario(id));
-        if (usuario == null) {
-            throw new UsuarioNoEncontradoException(id.toString());
-        }
+        // Usuario usuario = service.obtenerPorId(new Usuario(id));
+        // if (usuario == null) {
+        //     throw new UsuarioNoEncontradoException(id.toString());
+        // }
+
+        Usuario usuario = service.obtenerPorIdConOptional(new Usuario(id))
+        .orElseThrow(() -> new UsuarioNoEncontradoException(id.toString()));
+        
         model.addAttribute("usuario", usuario);
         model.addAttribute("titulo", "Detalle del usuario: "
         .concat(usuario.getNombre()));//Si el id no existe se produce un NullPointerException

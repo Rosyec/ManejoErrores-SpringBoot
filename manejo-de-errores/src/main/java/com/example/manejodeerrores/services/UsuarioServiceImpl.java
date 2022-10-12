@@ -2,6 +2,7 @@ package com.example.manejodeerrores.services;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,12 @@ public class UsuarioServiceImpl implements UsuarioService {
             }
         }
         return result;
+    }
+
+    @Override
+    public Optional<Usuario> obtenerPorIdConOptional(Usuario u) {
+        Usuario result = this.obtenerPorId(u);
+        return Optional.ofNullable(result);
     }
     
 }
